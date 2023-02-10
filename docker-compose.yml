@@ -1,0 +1,47 @@
+version: "2.1"
+services:
+  docker-wireguard-treafik-proxy:
+    image: linuxserver/wireguard
+    container_name: docker-wireguard-treafik-proxy
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+      - SERVERPORT=51820 
+      - PEERS=1 
+      - INTERNAL_SUBNET=10.0.1.0 
+      - ALLOWEDIPS=10.0.1.0/0 
+    volumes:
+      - ./config:/config
+    ports:
+      - 6005:51820/udp
+    expose:
+      - "$PORT1"
+      - "$PORT2"
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
+    networks:
+            - web
+    labels:
+            - traefik.enable=true
+
+            - traefik.http.services.$SERVICE1.loadbalancer.server.port=$PORT1
+            - traefik.http.routers.$SERVICE1.rule=Host(`sub1.mydomain.com`)
+            - traefik.http.routers.$SERVICE1.tls.certresolver=myresolver
+            - traefik.http.routers.$SERVICE1.service=$SERVICE1
+            - traefik.http.routers.$SERVICE1.entrypoints=websecure
+
+            - traefik.http.services.$SERVICE2.loadbalancer.server.port=$PORT2
+            - traefik.http.routers.$SERVICE2.service=$SERVICE2
+            - traefik.http.routers.$SERVICE2.rule=Host(`sub2.mydomain.com`)
+            - traefik.http.routers.$SERVICE2.tls.certresolver=myresolver
+            - traefik.http.routers.$SERVICE2.entrypoints=websecure
+    
+    
+networks:
+  web:
+    external: true
