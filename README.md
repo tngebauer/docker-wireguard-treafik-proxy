@@ -35,6 +35,8 @@ If you don't want to map the local port on the exact corresponding container por
 - traefik.http.routers.$SERVICE.entrypoints=websecure
 ```
 $PORT is the exposed port of the container 
+
 $SERVICE is a unique service identifier you can choose
+
 $DOMAIN is your subdomain traefik should route 
 
