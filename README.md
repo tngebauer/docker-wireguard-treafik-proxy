@@ -25,7 +25,9 @@ PostUp = iptables -t nat -A PREROUTING -i eth0 -p tcp --dport $PORT -j DNAT --to
 PostUp = iptables -t nat -A POSTROUTING -o wg0 -p tcp --dport $PORT -d 10.0.1.2 -j SNAT --to-source 10.0.1.1
 ```
 for every service that you want to expose from your local machine (has to be TCP) and replace $PORT with the corresponding port.
-If you don't want to map the local port on the exact corresponding container port, change the container port in the iptables commands.
+This setup forwards the TCP port $PORT from the container to the TCP port $PORT of your local machine. 
+If you want to map your local machines port to a different container port, you have to nat the destination port using iptables.
+In this case all $PORT occurances in the above code represent the containers TCP $PORT. 
 .
 
 ## Configuring Traefink (in the docker-compose.yml)
