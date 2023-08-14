@@ -3,7 +3,10 @@
 
 
 ## Get your client config
-Start die Container to generate your wireguard configs. Make sure to map the containers config directory to your servers filesystem or a docker volume, so that the configs are persistant and easily accessible.
+Start the Container to generate your wireguard configs. 
+
+Make sure to map the containers config directory to your servers filesystem or a docker volume, so that the configs are persistant and easily accessible.
+
 Get the client config from ```config/peer1/peer1.conf```, change the remote ip and deploy them to the local machine. Check if you can ping the remote server. Everything else is required to be modified at the server-side.
 
 ## Configuring Wireguard (Server)
