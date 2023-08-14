@@ -3,9 +3,10 @@
 
 
 ## Get your client config
-Get the client config from ```config/peer1/peer1.conf```, change the remote ip and deploy them to the local machine. Check if you can ping the remote server. Everything else is required to be modified at the server-side
+Start die Container to generate your wireguard configs. Make sure to map the containers config directory to your servers filesystem or a docker volume, so that the configs are persistant and easily accessible.
+Get the client config from ```config/peer1/peer1.conf```, change the remote ip and deploy them to the local machine. Check if you can ping the remote server. Everything else is required to be modified at the server-side.
 
-## Configuring Wireguard
+## Configuring Wireguard (Server)
 
 Add 
 ```
@@ -24,7 +25,7 @@ for every service that you want to expose from your local machine (has to be TCP
 If you don't want to map the local port on the exact corresponding container port, change the container port in the iptables commands.
 .
 
-## Configuring Traefink
+## Configuring Traefink (in the docker-compose.yml)
 1. Expose the Port of every service you want to forward. 
 2. Add the following fields to the ```labels:``` for every service and fill all data corresponding to your services:
 ```
