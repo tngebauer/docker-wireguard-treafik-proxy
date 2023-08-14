@@ -30,7 +30,7 @@ If you want to map your local machines port to a different container port, you h
 In this case all $PORT occurances in the above code represent the containers TCP $PORT. 
 .
 
-## Configuring Traefink (in the docker-compose.yml)
+## Configuring Traefik (in the docker-compose.yml)
 1. Expose the Port of every service you want to forward. 
 2. Add the following fields to the ```labels:``` for every service and fill all data corresponding to your services:
 ```
